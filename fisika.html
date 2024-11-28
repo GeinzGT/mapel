@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pusing Persiapan Fisika</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+      background: #0f0c29; /* Gradient background */
+      background: linear-gradient(45deg, #0f0c29, #302b63, #24243e);
+      height: 100vh;
+      overflow: hidden;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      position: relative;
+    }
+    .stars {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: transparent;
+      z-index: 1;
+      animation: move-stars 20s linear infinite;
+    }
+    .stars:after, .stars:before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(white, transparent 80%);
+      opacity: 0.5;
+      transform: translateX(-50%) rotate(45deg);
+    }
+    .container {
+      z-index: 2;
+      text-align: center;
+      animation: fadeIn 3s ease-out;
+    }
+    h1 {
+      font-size: 3rem;
+      margin: 0;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+    p {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      color: #fff;
+      background: #ff007c;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: transform 0.2s, background 0.3s;
+    }
+    button:hover {
+      background: #ff00c4;
+      transform: scale(1.1);
+    }
+    .quiz-container {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .quiz-container h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .quiz-container p {
+      font-size: 1.2rem;
+    }
+    .quiz-container button {
+      margin-top: 1rem;
+      background: #00c4ff;
+      transition: background 0.3s;
+    }
+    .quiz-container button:hover {
+      background: #00a3cc;
+    }
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes move-stars {
+      0% { background-position: 0 0; }
+      100% { background-position: 100% 100%; }
+    }
+    @keyframes glow {
+      0% { text-shadow: 0 0 5px #ff007c, 0 0 10px #ff007c, 0 0 15px #ff00ff; }
+      100% { text-shadow: 0 0 20px #ff007c, 0 0 30px #ff00ff, 0 0 40px #ff00ff; }
+    }
+  </style>
+</head>
+<body>
+  <div class="stars"></div>
+  <div class="container">
+    <h1>Pusing Persiapan Fisika?</h1>
+    <p>Tenang, fisika itu seru kalau dipahami. Yuk mulai dari yang kecil!</p>
+    <button id="startButton">Mulai Belajar</button>
+  </div>
+
+  <div class="quiz-container" id="quizContainer">
+    <h2>Soal Fisika</h2>
+    <p id="question">Pertanyaan akan muncul di sini...</p>
+    <button id="nextQuestionButton">Soal Berikutnya</button>
+  </div>
+
+  <script>
+    const startButton = document.getElementById('startButton');
+    const quizContainer = document.getElementById('quizContainer');
+    const questionText = document.getElementById('question');
+    const nextQuestionButton = document.getElementById('nextQuestionButton');
+
+    const questions = [
+      "1. Sebuah benda bergerak dengan kecepatan 10 m/s selama 5 detik. Berapakah jarak yang ditempuh benda tersebut?",
+      "2. Jika massa sebuah benda adalah 2 kg dan percepatan gravitasi adalah 10 m/s², berapakah berat benda tersebut?",
+      "3. Sebuah pegas dengan konstanta pegas 50 N/m diregangkan sejauh 0,2 meter. Berapakah energi potensial elastisnya?",
+      "4. Sebuah cermin cekung memiliki jarak fokus 10 cm. Jika sebuah benda diletakkan sejauh 30 cm dari cermin, di manakah bayangannya terbentuk?"
+    ];
+
+    let currentQuestionIndex = 0;
+
+    startButton.addEventListener('click', () => {
+      document.querySelector('.container').style.display = 'none';
+      quizContainer.style.display = 'flex';
+      loadQuestion();
+    });
+
+    nextQuestionButton.addEventListener('click', () => {
+      currentQuestionIndex = (currentQuestionIndex + 1) % questions.length;
+      loadQuestion();
+    });
+
+    function loadQuestion() {
+      questionText.textContent = questions[currentQuestionIndex];
+    }
+  </script>
+</body>
+</html>
